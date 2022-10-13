@@ -5,9 +5,17 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+
+
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Vector;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import java.awt.Font;
@@ -22,13 +30,19 @@ import javax.swing.ImageIcon;
 public class GUI_QUANLY extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTable table;
+	private JTextField text_lop;
+	private JTextField text_ten;
+	private JTextField text_diem;
+	private JTextField text_xeploai;
+	private JTextField text_hk;
+	private JTable table_hienthi;
+	private DefaultTableModel dtm = new DefaultTableModel();
+	private Process_Student ps = new Process_Student();
+	private ArrayList<Student> lst;
+	private Vector<String> columns = new Vector<String>();
+	private Vector<Vector<Object>> rows = new Vector<>();
+	private JComboBox<String> cb_khoi = new JComboBox<>();
+	private JTextField text_mhs = new JTextField();
 
 	/**
 	 * Launch the application.
@@ -73,14 +87,14 @@ public class GUI_QUANLY extends JFrame {
 		lblThngTin.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		panel.add(lblThngTin);
 		
-		JLabel lblNewLabel = new JLabel("khối :");
+		JLabel lblNewLabel = new JLabel("Khối :");
 		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setBounds(10, 46, 54, 30);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblNewLabel);
 		
-		JComboBox cb_khoi = new JComboBox();
+
 		cb_khoi.setBounds(132, 53, 208, 21);
 		panel.add(cb_khoi);
 		
@@ -90,10 +104,10 @@ public class GUI_QUANLY extends JFrame {
 		lblLp.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblLp);
 		
-		textField = new JTextField();
-		textField.setBounds(133, 102, 207, 24);
-		panel.add(textField);
-		textField.setColumns(10);
+		text_lop = new JTextField();
+		text_lop.setBounds(133, 102, 207, 24);
+		panel.add(text_lop);
+		text_lop.setColumns(10);
 		
 		JLabel lblHTn = new JLabel("Mã Học Sinh:");
 		lblHTn.setBounds(10, 155, 100, 21);
@@ -101,10 +115,10 @@ public class GUI_QUANLY extends JFrame {
 		lblHTn.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblHTn);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(133, 156, 207, 24);
-		textField_1.setColumns(10);
-		panel.add(textField_1);
+		
+		text_mhs.setBounds(133, 156, 207, 24);
+		text_mhs.setColumns(10);
+		panel.add(text_mhs);
 		
 		JLabel lblHTn_3 = new JLabel("Họ Tên :");
 		lblHTn_3.setBounds(10, 199, 100, 21);
@@ -112,10 +126,10 @@ public class GUI_QUANLY extends JFrame {
 		lblHTn_3.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblHTn_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(132, 200, 207, 24);
-		textField_2.setColumns(10);
-		panel.add(textField_2);
+		text_ten = new JTextField();
+		text_ten.setBounds(132, 200, 207, 24);
+		text_ten.setColumns(10);
+		panel.add(text_ten);
 		
 		JLabel lblHTn_1_1 = new JLabel("Điểm trung bình");
 		lblHTn_1_1.setBounds(10, 244, 110, 24);
@@ -123,11 +137,11 @@ public class GUI_QUANLY extends JFrame {
 		lblHTn_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblHTn_1_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(133, 247, 207, 24);
-		textField_3.setEnabled(false);
-		textField_3.setColumns(10);
-		panel.add(textField_3);
+		text_diem = new JTextField();
+		text_diem.setBounds(133, 247, 207, 24);
+		text_diem.setEnabled(false);
+		text_diem.setColumns(10);
+		panel.add(text_diem);
 		
 		JLabel lblHTn_1_1_1 = new JLabel("Xếp loại:");
 		lblHTn_1_1_1.setBounds(10, 298, 110, 21);
@@ -135,11 +149,11 @@ public class GUI_QUANLY extends JFrame {
 		lblHTn_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblHTn_1_1_1);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(132, 299, 207, 24);
-		textField_4.setEnabled(false);
-		textField_4.setColumns(10);
-		panel.add(textField_4);
+		text_xeploai = new JTextField();
+		text_xeploai.setBounds(132, 299, 207, 24);
+		text_xeploai.setEnabled(false);
+		text_xeploai.setColumns(10);
+		panel.add(text_xeploai);
 		
 		JLabel lblHTn_1_1_1_1 = new JLabel("Hạnh Kiểm:");
 		lblHTn_1_1_1_1.setBounds(10, 344, 110, 21);
@@ -147,57 +161,122 @@ public class GUI_QUANLY extends JFrame {
 		lblHTn_1_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblHTn_1_1_1_1);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(133, 347, 207, 24);
-		textField_5.setEnabled(false);
-		textField_5.setColumns(10);
-		panel.add(textField_5);
+		text_hk = new JTextField();
+		text_hk.setBounds(133, 347, 207, 24);
+		text_hk.setEnabled(false);
+		text_hk.setColumns(10);
+		panel.add(text_hk);
 		
-		JButton btnNewButton = new JButton("Tìm Kiếm");
-		btnNewButton.setBounds(20, 392, 100, 41);
-		btnNewButton.setBackground(new Color(255, 255, 0));
-		btnNewButton.setForeground(new Color(255, 0, 0));
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		panel.add(btnNewButton);
+		JButton btn_timkiem = new JButton("Tìm Kiếm");
+		btn_timkiem.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				getListStudentbykhoi(cb_khoi.getSelectedItem()+"");
+			}
+		});
+		btn_timkiem.setBounds(20, 392, 100, 41);
+		btn_timkiem.setBackground(new Color(255, 255, 0));
+		btn_timkiem.setForeground(new Color(255, 0, 0));
+		btn_timkiem.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		panel.add(btn_timkiem);
 		
-		JButton btnThm = new JButton("Hiển Thị");
-		btnThm.setBounds(132, 392, 100, 41);
-		btnThm.setForeground(Color.RED);
-		btnThm.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnThm.setBackground(Color.YELLOW);
-		panel.add(btnThm);
+		JButton btn_clear = new JButton("Clear");
+		btn_clear.setBounds(132, 392, 100, 41);
+		btn_clear.setForeground(Color.RED);
+		btn_clear.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_clear.setBackground(Color.YELLOW);
+		panel.add(btn_clear);
 		
-		JButton btnSa = new JButton("Sửa");
-		btnSa.setBounds(245, 392, 100, 41);
-		btnSa.setForeground(Color.RED);
-		btnSa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSa.setBackground(Color.YELLOW);
-		panel.add(btnSa);
+		JButton btn_sua = new JButton("Sửa");
+		btn_sua.setBounds(245, 392, 100, 41);
+		btn_sua.setForeground(Color.RED);
+		btn_sua.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_sua.setBackground(Color.YELLOW);
+		panel.add(btn_sua);
 		
-		JButton btnSpXp = new JButton("Sắp xếp");
-		btnSpXp.setBounds(20, 443, 100, 41);
-		btnSpXp.setForeground(Color.RED);
-		btnSpXp.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnSpXp.setBackground(Color.YELLOW);
-		panel.add(btnSpXp);
+		JButton btn_sapxep = new JButton("Sắp xếp");
+		btn_sapxep.setBounds(20, 443, 100, 41);
+		btn_sapxep.setForeground(Color.RED);
+		btn_sapxep.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_sapxep.setBackground(Color.YELLOW);
+panel.add(btn_sapxep);
 		
-		JButton btnXa = new JButton("Xóa");
-		btnXa.setBounds(132, 443, 100, 41);
-		btnXa.setForeground(Color.RED);
-		btnXa.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnXa.setBackground(Color.YELLOW);
-		panel.add(btnXa);
+		JButton btn_xoa = new JButton("Xóa");
+		btn_xoa.setBounds(132, 443, 100, 41);
+		btn_xoa.setForeground(Color.RED);
+		btn_xoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_xoa.setBackground(Color.YELLOW);
+		panel.add(btn_xoa);
 		
-		JButton btnThm_1 = new JButton("Thêm");
-		btnThm_1.setBounds(245, 443, 100, 41);
-		btnThm_1.setForeground(Color.RED);
-		btnThm_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		btnThm_1.setBackground(Color.YELLOW);
-		panel.add(btnThm_1);
+		JButton btn_them = new JButton("Thêm");
+		btn_them.setBounds(245, 443, 100, 41);
+		btn_them.setForeground(Color.RED);
+		btn_them.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		btn_them.setBackground(Color.YELLOW);
+		panel.add(btn_them);
 		
-		table = new JTable();
-		table.setBackground(new Color(192, 192, 192));
-		table.setBounds(371, 10, 668, 519);
-		contentPane.add(table);
+		table_hienthi = new JTable();
+		table_hienthi.setEnabled(false);
+		table_hienthi.setBackground(new Color(128, 255, 255));
+		table_hienthi.setBounds(371, 10, 668, 519);
+		contentPane.add(table_hienthi);
+		
+		columns.add("ID");
+		columns.add("Name");
+		columns.add("ClassID");
+		columns.add("Mark");
+		columns.add("Khối");
+		lst = ps.getListStudent();
+		getAllStudent();
+
+		lst = ps.getListStudent();
+		for(int i = 0; i < lst.size(); i++) {
+			int countKhoi = 0;
+			for(int j = i + 1; j < lst.size(); j++) {
+				
+				if(lst.get(i).getKhoi() == lst.get(j).getKhoi())
+					countKhoi++;
+			}
+			
+			if(countKhoi == 0)
+				cb_khoi.addItem(lst.get(i).getKhoi() + "");
+		}
+			
+		getAllStudent();
+	}
+	private void getListStudentbykhoi(String Khoi) {
+		dtm.setNumRows(0);
+		lst = ps.getListStudentbykhoi(Khoi);
+		for(int i = 0; i < lst.size(); i++) {
+			Student t = (Student)lst.get(i);
+			Vector<Object> tbRow = new Vector<>();
+			tbRow.add(t.getID());
+			tbRow.add(t.getName());
+			tbRow.add(t.getClassID());
+			tbRow.add(t.getMark());
+			tbRow.add(t.getKhoi());
+			rows.add(tbRow);
+		}
+		dtm.setDataVector(rows, columns);
+		dtm.insertRow(0, columns);
+		table_hienthi.setModel(dtm);
+	}
+
+	private void getAllStudent() {
+		dtm.setNumRows(0);
+		lst = ps.getListStudent();
+		for(int i = 0; i < lst.size(); i++) {
+			Student t = (Student)lst.get(i);
+			Vector<Object> tbRow = new Vector<>();
+			tbRow.add(t.getID());
+			tbRow.add(t.getName());
+			tbRow.add(t.getClassID());
+			tbRow.add(t.getMark());
+			tbRow.add(t.getKhoi());
+			rows.add(tbRow);
+		}
+		dtm.setDataVector(rows, columns);
+		dtm.insertRow(0, columns);
+		table_hienthi.setModel(dtm);
 	}
 }

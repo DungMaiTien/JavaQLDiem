@@ -29,6 +29,9 @@ public class Student extends Person {
 		Mark = mark;
 		Khoi = khoi;
 	}
+	public Student(String iD, String name) {
+		super(iD, name);
+	}
 	public Student() {
 		super();
 	}

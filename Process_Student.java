@@ -50,7 +50,7 @@ public class Process_Student {
 	public ArrayList<Student> getListStudentbykhoi(String khoi) {
 		// TODO Auto-generated method stub
 			Connection cn = getCon();
-			String sql = "SELECT *  FROM db_Student.tb_Student WHERE Khoi = ?";
+			String sql = "SELECT *  FROM db_qlhs.tb_student WHERE Khoi = ?";
 			ArrayList<Student> lsStudent = new ArrayList<>();
 			try {
 				PreparedStatement ps = (PreparedStatement)cn.prepareStatement(sql);
@@ -71,6 +71,7 @@ public class Process_Student {
 			}
 			return lsStudent;
 	}
+
 	public static void main(String[] args) {
 		System.out.println(getCon());
 	}

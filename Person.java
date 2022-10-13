@@ -1,6 +1,6 @@
 package Quanlydiem;
 
-public class Person {
+public abstract class Person {
 	private String ID;
 	private String Name;
 	public String getID() {
