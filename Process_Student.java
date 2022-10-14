@@ -143,6 +143,30 @@ public class Process_Student {
 			}
 			return lsStudent;
 	}
+	public ArrayList<Student> getListStudentbydtb(String text_diem) {
+		// TODO Auto-generated method stub
+			Connection cn = getCon();
+			String sql = "SELECT *  FROM db_qlhs.tb_student WHERE Mark = ?";
+			ArrayList<Student> lsStudent = new ArrayList<>();
+			try {
+				PreparedStatement ps = (PreparedStatement)cn.prepareStatement(sql);
+				ps.setString(1, text_diem);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					Student t = new Student();
+					t.setID(rs.getString("ID"));
+					t.setName(rs.getString("Name"));
+					t.setClassID(rs.getString("ClassID"));
+					t.setMark(rs.getDouble("Mark"));
+					t.setKhoi(rs.getInt("Khoi"));
+					lsStudent.add(t);
+				}
+			}
+			catch(SQLException e) {
+				
+			}
+			return lsStudent;
+	}
 	public static void main(String[] args) {
 		System.out.println(getCon());
 	}
