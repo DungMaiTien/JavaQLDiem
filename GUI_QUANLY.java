@@ -170,22 +170,26 @@ public class GUI_QUANLY extends JFrame {
 		btn_timkiem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(text_mhs.getText().toString().equals("")&&text_ten.getText().toString().equals("")&&text_lop.getText().toString().equals(""))
+				if(text_mhs.getText().toString().equals("")&&text_ten.getText().toString().equals("")&&text_lop.getText().toString().equals("")&&text_diem.getText().toString().equals(""))
 				{
 					getListStudentbykhoi(cb_khoi.getSelectedItem()+"");
 				}
-				else
+				else if(text_mhs.getText().toString().equals("")&&text_ten.getText().toString().equals("")&&text_diem.getText().toString().equals(""))
+				{
+					getListStudentbyClassID(text_lop.getText());
+				}
+				else if(text_ten.getText().toString().equals("")&&text_lop.getText().toString().equals("")&&text_diem.getText().toString().equals(""))
 				{
 					getListStudentbyID(text_mhs.getText());
 				}
-//				if(text_ten.getText()!="")
-//				{
-//					getListStudentbyName(text_ten.getText());
-//				}
-//				else if(text_lop.getText()!="")
-//				{
-//					getListStudentbyClassID(text_lop.getText());
-//				}
+				else if(text_mhs.getText().toString().equals("")&&text_lop.getText().toString().equals("")&&text_diem.getText().toString().equals(""))
+				{
+					getListStudentbyName(text_ten.getText());
+				}
+				else if(text_mhs.getText().toString().equals("")&&text_lop.getText().toString().equals("")&&text_ten.getText().toString().equals(""))
+				{
+					getListStudentbydtb(text_diem.getText());
+				}
 			}
 		});
 		btn_timkiem.setBounds(20, 392, 100, 41);
@@ -284,7 +288,7 @@ panel.add(btn_sapxep);
 	}
 	private void getListStudentbyClassID(String ClassID) {
 		dtm.setNumRows(0);
-		lst = ps.getListStudentbykhoi(ClassID);
+		lst = ps.getListStudentbyClassID(ClassID);
 		for(int i = 0; i < lst.size(); i++) {
 			Student t = (Student)lst.get(i);
 			Vector<Object> tbRow = new Vector<>();
@@ -302,6 +306,23 @@ panel.add(btn_sapxep);
 	private void getListStudentbyName(String text_ten) {
 		dtm.setNumRows(0);
 		lst = ps.getListStudentbyName(text_ten);
+		for(int i = 0; i < lst.size(); i++) {
+			Student t = (Student)lst.get(i);
+			Vector<Object> tbRow = new Vector<>();
+			tbRow.add(t.getID());
+			tbRow.add(t.getName());
+			tbRow.add(t.getClassID());
+			tbRow.add(t.getMark());
+			tbRow.add(t.getKhoi());
+			rows.add(tbRow);
+		}
+		dtm.setDataVector(rows, columns);
+		dtm.insertRow(0, columns);
+		table_hienthi.setModel(dtm);
+	}
+	private void getListStudentbydtb(String text_diem) {
+		dtm.setNumRows(0);
+		lst = ps.getListStudentbydtb(text_diem);
 		for(int i = 0; i < lst.size(); i++) {
 			Student t = (Student)lst.get(i);
 			Vector<Object> tbRow = new Vector<>();
