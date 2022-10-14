@@ -139,7 +139,6 @@ public class GUI_QUANLY extends JFrame {
 		
 		text_diem = new JTextField();
 		text_diem.setBounds(133, 247, 207, 24);
-		text_diem.setEnabled(false);
 		text_diem.setColumns(10);
 		panel.add(text_diem);
 		
@@ -178,9 +177,7 @@ public class GUI_QUANLY extends JFrame {
 				else 
 				{
 				getListStudentbyID(text_mhs.getText());
-				}
-				
-				
+				}	
 			}
 		});
 		btn_timkiem.setBounds(20, 392, 100, 41);
