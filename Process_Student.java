@@ -71,7 +71,78 @@ public class Process_Student {
 			}
 			return lsStudent;
 	}
-
+	public ArrayList<Student> getListStudentbyClassID(String ClassID) {
+		// TODO Auto-generated method stub
+			Connection cn = getCon();
+			String sql = "SELECT *  FROM db_qlhs.tb_student WHERE ClassID = ?";
+			ArrayList<Student> lsStudent = new ArrayList<>();
+			try {
+				PreparedStatement ps = (PreparedStatement)cn.prepareStatement(sql);
+				ps.setString(1, ClassID);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					Student t = new Student();
+					t.setID(rs.getString("ID"));
+					t.setName(rs.getString("Name"));
+					t.setClassID(rs.getString("ClassID"));
+					t.setMark(rs.getDouble("Mark"));
+					t.setKhoi(rs.getInt("Khoi"));
+					lsStudent.add(t);
+				}
+			}
+			catch(SQLException e) {
+				
+			}
+			return lsStudent;
+	}
+	public ArrayList<Student> getListStudentbyID(String text_mhs) {
+		// TODO Auto-generated method stub
+			Connection cn = getCon();
+			String sql = "SELECT *  FROM db_qlhs.tb_student WHERE ID = ?";
+			ArrayList<Student> lsStudent = new ArrayList<>();
+			try {
+				PreparedStatement ps = (PreparedStatement)cn.prepareStatement(sql);
+				ps.setString(1, text_mhs);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					Student t = new Student();
+					t.setID(rs.getString("ID"));
+					t.setName(rs.getString("Name"));
+					t.setClassID(rs.getString("ClassID"));
+					t.setMark(rs.getDouble("Mark"));
+					t.setKhoi(rs.getInt("Khoi"));
+					lsStudent.add(t);
+				}
+			}
+			catch(SQLException e) {
+				
+			}
+			return lsStudent;
+	}
+	public ArrayList<Student> getListStudentbyName(String text_ten) {
+		// TODO Auto-generated method stub
+			Connection cn = getCon();
+			String sql = "SELECT *  FROM db_qlhs.tb_student WHERE Name = ?";
+			ArrayList<Student> lsStudent = new ArrayList<>();
+			try {
+				PreparedStatement ps = (PreparedStatement)cn.prepareStatement(sql);
+				ps.setString(1, text_ten);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					Student t = new Student();
+					t.setID(rs.getString("ID"));
+					t.setName(rs.getString("Name"));
+					t.setClassID(rs.getString("ClassID"));
+					t.setMark(rs.getDouble("Mark"));
+					t.setKhoi(rs.getInt("Khoi"));
+					lsStudent.add(t);
+				}
+			}
+			catch(SQLException e) {
+				
+			}
+			return lsStudent;
+	}
 	public static void main(String[] args) {
 		System.out.println(getCon());
 	}
