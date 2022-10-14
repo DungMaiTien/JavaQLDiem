@@ -67,7 +67,7 @@ public class GUI_QUANLY extends JFrame {
 		setResizable(false);
 		setTitle("CHƯƠNG TRÌNH QUẢN LÝ ĐIỂM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1063, 579);
+		setBounds(100, 100, 1063, 611);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -76,7 +76,7 @@ public class GUI_QUANLY extends JFrame {
 		
 		Panel panel = new Panel();
 		panel.setBackground(new Color(128, 255, 255));
-		panel.setBounds(10, 10, 355, 519);
+		panel.setBounds(10, 10, 355, 543);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -171,7 +171,16 @@ public class GUI_QUANLY extends JFrame {
 		btn_timkiem.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				getListStudentbykhoi(cb_khoi.getSelectedItem()+"");
+				if(text_mhs.getText().toString().equals(""))
+				{
+					getListStudentbykhoi(cb_khoi.getSelectedItem()+"");
+				}
+				else 
+				{
+				getListStudentbyID(text_mhs.getText());
+				}
+				
+				
 			}
 		});
 		btn_timkiem.setBounds(20, 392, 100, 41);
@@ -215,10 +224,17 @@ panel.add(btn_sapxep);
 		btn_them.setBackground(Color.YELLOW);
 		panel.add(btn_them);
 		
+		JButton btn_luu = new JButton("LƯU");
+		btn_luu.setBackground(new Color(255, 255, 128));
+		btn_luu.setForeground(new Color(255, 0, 0));
+		btn_luu.setFont(new Font("Tahoma", Font.PLAIN, 21));
+		btn_luu.setBounds(73, 494, 226, 39);
+		panel.add(btn_luu);
+		
 		table_hienthi = new JTable();
 		table_hienthi.setEnabled(false);
 		table_hienthi.setBackground(new Color(128, 255, 255));
-		table_hienthi.setBounds(371, 10, 668, 519);
+		table_hienthi.setBounds(371, 10, 668, 543);
 		contentPane.add(table_hienthi);
 		
 		columns.add("ID");
@@ -247,6 +263,40 @@ panel.add(btn_sapxep);
 	private void getListStudentbykhoi(String Khoi) {
 		dtm.setNumRows(0);
 		lst = ps.getListStudentbykhoi(Khoi);
+		for(int i = 0; i < lst.size(); i++) {
+			Student t = (Student)lst.get(i);
+			Vector<Object> tbRow = new Vector<>();
+			tbRow.add(t.getID());
+			tbRow.add(t.getName());
+			tbRow.add(t.getClassID());
+			tbRow.add(t.getMark());
+			tbRow.add(t.getKhoi());
+			rows.add(tbRow);
+		}
+		dtm.setDataVector(rows, columns);
+		dtm.insertRow(0, columns);
+		table_hienthi.setModel(dtm);
+	}
+	private void getListStudentbyName(String text_ten) {
+		dtm.setNumRows(0);
+		lst = ps.getListStudentbyName(text_ten);
+		for(int i = 0; i < lst.size(); i++) {
+			Student t = (Student)lst.get(i);
+			Vector<Object> tbRow = new Vector<>();
+			tbRow.add(t.getID());
+			tbRow.add(t.getName());
+			tbRow.add(t.getClassID());
+			tbRow.add(t.getMark());
+			tbRow.add(t.getKhoi());
+			rows.add(tbRow);
+		}
+		dtm.setDataVector(rows, columns);
+		dtm.insertRow(0, columns);
+		table_hienthi.setModel(dtm);
+	}
+	private void getListStudentbyID(String text_mhs) {
+		dtm.setNumRows(0);
+		lst = ps.getListStudentbyID(text_mhs);
 		for(int i = 0; i < lst.size(); i++) {
 			Student t = (Student)lst.get(i);
 			Vector<Object> tbRow = new Vector<>();
