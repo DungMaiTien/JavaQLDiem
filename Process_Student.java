@@ -40,6 +40,7 @@ public class Process_Student {
 				t.setClassID(rs.getString("ClassID"));
 				t.setMark(rs.getDouble("Mark"));
 				t.setKhoi(rs.getInt("Khoi"));
+				t.setHanhKiem(rs.getString("HanhKiem"));
 				lsStudent.add(t);
 			}
 		}
@@ -63,6 +64,7 @@ public class Process_Student {
 					t.setClassID(rs.getString("ClassID"));
 					t.setMark(rs.getDouble("Mark"));
 					t.setKhoi(rs.getInt("Khoi"));
+					t.setHanhKiem(rs.getString("HanhKiem"));
 					lsStudent.add(t);
 				}
 			}
@@ -71,6 +73,7 @@ public class Process_Student {
 			}
 			return lsStudent;
 	}
+	
 	public ArrayList<Student> getListStudentbyClassID(String ClassID) {
 		// TODO Auto-generated method stub
 			Connection cn = getCon();
@@ -87,6 +90,7 @@ public class Process_Student {
 					t.setClassID(rs.getString("ClassID"));
 					t.setMark(rs.getDouble("Mark"));
 					t.setKhoi(rs.getInt("Khoi"));
+					t.setHanhKiem(rs.getString("HanhKiem"));
 					lsStudent.add(t);
 				}
 			}
@@ -99,7 +103,7 @@ public class Process_Student {
 		// TODO Auto-generated method stub
 			Connection cn = getCon();
 			String sql = "SELECT *  FROM db_qlhs.tb_student WHERE ID = ?";
-			ArrayList<Student> lsStudent = new ArrayList<>();
+ArrayList<Student> lsStudent = new ArrayList<>();
 			try {
 				PreparedStatement ps = (PreparedStatement)cn.prepareStatement(sql);
 				ps.setString(1, text_mhs);
@@ -111,6 +115,7 @@ public class Process_Student {
 					t.setClassID(rs.getString("ClassID"));
 					t.setMark(rs.getDouble("Mark"));
 					t.setKhoi(rs.getInt("Khoi"));
+					t.setHanhKiem(rs.getString("HanhKiem"));
 					lsStudent.add(t);
 				}
 			}
@@ -135,6 +140,7 @@ public class Process_Student {
 					t.setClassID(rs.getString("ClassID"));
 					t.setMark(rs.getDouble("Mark"));
 					t.setKhoi(rs.getInt("Khoi"));
+					t.setHanhKiem(rs.getString("HanhKiem"));
 					lsStudent.add(t);
 				}
 			}
@@ -159,6 +165,7 @@ public class Process_Student {
 					t.setClassID(rs.getString("ClassID"));
 					t.setMark(rs.getDouble("Mark"));
 					t.setKhoi(rs.getInt("Khoi"));
+					t.setHanhKiem(rs.getString("HanhKiem"));
 					lsStudent.add(t);
 				}
 			}

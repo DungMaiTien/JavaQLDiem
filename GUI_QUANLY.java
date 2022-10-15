@@ -103,7 +103,6 @@ public class GUI_QUANLY extends JFrame {
 		lblLp.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLp.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblLp);
-		
 		text_lop = new JTextField();
 		text_lop.setBounds(133, 102, 207, 24);
 		panel.add(text_lop);
@@ -251,6 +250,8 @@ panel.add(btn_sapxep);
 		columns.add("ClassID");
 		columns.add("Mark");
 		columns.add("Khối");
+		columns.add("Hạnh Kiểm");
+		columns.add("Xếp Loại");
 		lst = ps.getListStudent();
 		getAllStudent();
 
@@ -269,6 +270,7 @@ panel.add(btn_sapxep);
 			
 		getAllStudent();
 	}
+	
 	private void getListStudentbykhoi(String Khoi) {
 		dtm.setNumRows(0);
 		lst = ps.getListStudentbykhoi(Khoi);
@@ -280,6 +282,8 @@ panel.add(btn_sapxep);
 			tbRow.add(t.getClassID());
 			tbRow.add(t.getMark());
 			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
 			rows.add(tbRow);
 		}
 		dtm.setDataVector(rows, columns);
@@ -297,12 +301,15 @@ panel.add(btn_sapxep);
 			tbRow.add(t.getClassID());
 			tbRow.add(t.getMark());
 			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
 			rows.add(tbRow);
 		}
 		dtm.setDataVector(rows, columns);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
 	}
+	
 	private void getListStudentbyName(String text_ten) {
 		dtm.setNumRows(0);
 		lst = ps.getListStudentbyName(text_ten);
@@ -314,12 +321,15 @@ panel.add(btn_sapxep);
 			tbRow.add(t.getClassID());
 			tbRow.add(t.getMark());
 			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
 			rows.add(tbRow);
 		}
 		dtm.setDataVector(rows, columns);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
 	}
+	
 	private void getListStudentbydtb(String text_diem) {
 		dtm.setNumRows(0);
 		lst = ps.getListStudentbydtb(text_diem);
@@ -331,12 +341,15 @@ panel.add(btn_sapxep);
 			tbRow.add(t.getClassID());
 			tbRow.add(t.getMark());
 			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
 			rows.add(tbRow);
 		}
 		dtm.setDataVector(rows, columns);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
 	}
+	
 	private void getListStudentbyID(String text_mhs) {
 		dtm.setNumRows(0);
 		lst = ps.getListStudentbyID(text_mhs);
@@ -348,6 +361,8 @@ panel.add(btn_sapxep);
 			tbRow.add(t.getClassID());
 			tbRow.add(t.getMark());
 			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
 			rows.add(tbRow);
 		}
 		dtm.setDataVector(rows, columns);
@@ -366,6 +381,8 @@ panel.add(btn_sapxep);
 			tbRow.add(t.getClassID());
 			tbRow.add(t.getMark());
 			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
 			rows.add(tbRow);
 		}
 		dtm.setDataVector(rows, columns);
