@@ -67,7 +67,7 @@ public class GUI_QUANLY extends JFrame {
 		setResizable(false);
 		setTitle("CHƯƠNG TRÌNH QUẢN LÝ ĐIỂM");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1063, 611);
+		setBounds(100, 100, 1218, 611);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -242,7 +242,7 @@ panel.add(btn_sapxep);
 		table_hienthi = new JTable();
 		table_hienthi.setEnabled(false);
 		table_hienthi.setBackground(new Color(128, 255, 255));
-		table_hienthi.setBounds(371, 10, 668, 543);
+		table_hienthi.setBounds(371, 10, 823, 543);
 		contentPane.add(table_hienthi);
 		
 		columns.add("ID");
