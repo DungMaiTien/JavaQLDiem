@@ -429,5 +429,7 @@ panel.add(btn_sapxep);
 		text_mhs.setText(null);
 		text_ten.setText(null);
 		text_diem.setText(null);
+		text_xeploai.setText(null);
+		text_hk.setText(null);
 	}
 }
