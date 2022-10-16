@@ -1,14 +1,11 @@
 package Quanlydiem;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
-
-
+import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import java.awt.Panel;
@@ -28,7 +25,9 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
-
+import java.util.Collections;
+import java.util.Comparator;
+import javax.swing.DefaultComboBoxModel;
 public class GUI_QUANLY extends JFrame {
 
 	private JPanel contentPane;
@@ -95,6 +94,7 @@ public class GUI_QUANLY extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		panel.add(lblNewLabel);
+		cb_khoi.setModel(new DefaultComboBoxModel(new String[] {"null"}));
 		
 
 		cb_khoi.setBounds(132, 53, 208, 21);
@@ -214,6 +214,14 @@ public class GUI_QUANLY extends JFrame {
 		panel.add(btn_sua);
 		
 		JButton btn_sapxep = new JButton("Sắp xếp");
+//		btn_sapxep.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				Collection.sort(lst,(a,b)->(double)a.getMark()-b.getMark());
+//				getAllStudent();
+//			}
+//		});
+		
+		
 		btn_sapxep.setBounds(20, 443, 100, 41);
 		btn_sapxep.setForeground(Color.RED);
 		btn_sapxep.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -410,4 +418,5 @@ panel.add(btn_sapxep);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
 	}
+
 }
