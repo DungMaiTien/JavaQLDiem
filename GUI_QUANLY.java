@@ -200,6 +200,11 @@ public class GUI_QUANLY extends JFrame {
 		panel.add(btn_timkiem);
 		
 		JButton btn_clear = new JButton("Clear");
+		btn_clear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Clear();
+			}
+		});
 		btn_clear.setBounds(132, 392, 100, 41);
 		btn_clear.setForeground(Color.RED);
 		btn_clear.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -418,5 +423,11 @@ panel.add(btn_sapxep);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
 	}
-
+	private void Clear()
+	{
+		text_lop.setText(null);
+		text_mhs.setText(null);
+		text_ten.setText(null);
+		text_diem.setText(null);
+	}
 }
