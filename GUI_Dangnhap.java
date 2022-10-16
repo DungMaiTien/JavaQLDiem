@@ -19,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
+import javax.swing.SwingConstants;
 
 public class GUI_Dangnhap extends JFrame {
 	private JTextField text_tk;
@@ -87,6 +88,7 @@ public class GUI_Dangnhap extends JFrame {
 		contentPane.add(pwf_mk);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setIcon(new ImageIcon("D:\\JVQLDTHPT\\Anh.jpg"));
 		lblNewLabel_1.setBounds(0, 0, 422, 199);
 		contentPane.add(lblNewLabel_1);
