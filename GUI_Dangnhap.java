@@ -87,7 +87,7 @@ public class GUI_Dangnhap extends JFrame {
 		contentPane.add(pwf_mk);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("E:\\LTJava\\JavaQLDiem-DungMaiTien-GUI-1\\Anh.jpg"));
+		lblNewLabel_1.setIcon(new ImageIcon("D:\\JVQLDTHPT\\Anh.jpg"));
 		lblNewLabel_1.setBounds(0, 0, 422, 199);
 		contentPane.add(lblNewLabel_1);
 		
@@ -104,9 +104,13 @@ public class GUI_Dangnhap extends JFrame {
 						f = new GUI_QUANLY();
 						f.show();
 				}
+				else if(use.equals("") || pass.equals(""))
+				{
+					JOptionPane.showMessageDialog(btn_dongy, "Bạn chưa nhập tài khoản hoặc mật khẩu");
+				}
 				else
 				{
-					JOptionPane.showMessageDialog(btn_dongy1, "Tài Khoản hoặc mật khẩu không đúng!");
+					JOptionPane.showMessageDialog(btn_dongy1, "Bạn đã nhập sai tài khoản hoặc mật khẩu!");
 				}	
 			}
 		});
