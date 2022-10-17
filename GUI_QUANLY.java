@@ -8,6 +8,8 @@ import javax.swing.table.DefaultTableModel;
 import com.mysql.cj.x.protobuf.MysqlxCrud.Collection;
 import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,7 +46,8 @@ public class GUI_QUANLY extends JFrame {
 	private Vector<Vector<Object>> rows = new Vector<>();
 	private JComboBox<String> cb_khoi = new JComboBox<>();
 	private JTextField text_mhs = new JTextField();
-
+	private JOptionPane jOP_Check = new javax.swing.JOptionPane();
+	private JOptionPane jOP_Message = new JOptionPane();
 	/**
 	 * Launch the application.
 	 */
@@ -191,6 +194,7 @@ public class GUI_QUANLY extends JFrame {
 				{
 					getListStudentbydtb(text_diem.getText());
 				}
+				
 			}
 		});
 		btn_timkiem.setBounds(20, 392, 100, 41);
@@ -233,7 +237,14 @@ public class GUI_QUANLY extends JFrame {
 		btn_sapxep.setBackground(Color.YELLOW);
 panel.add(btn_sapxep);
 		
-		JButton btn_xoa = new JButton("Xóa");
+		JButton btn_xoa = new JButton("Xóa");		
+			btn_xoa.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					// xoa
+					delStudent();
+				}
+			});
+		
 		btn_xoa.setBounds(132, 443, 100, 41);
 		btn_xoa.setForeground(Color.RED);
 		btn_xoa.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -432,4 +443,21 @@ panel.add(btn_sapxep);
 		text_xeploai.setText(null);
 		text_hk.setText(null);
 	}
+
+public void delStudent() {
+	dtm.setNumRows(0);
+	String id = text_mhs.getText();
+	if(jOP_Check.showConfirmDialog(null, "Bạn có muốn xóa thông tin sinh viên này?", "Xóa sinh viên", jOP_Check.YES_NO_CANCEL_OPTION) == 0)
+	{
+		if(ps.delStudent(id) == true) {
+			getAllStudent();
+			jOP_Message.showMessageDialog(null, "Sinh viên đã được xóa khỏi danh sách!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+		else {
+			jOP_Message.showMessageDialog(null, "Xóa sinh viên không thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+			getAllStudent();
+	}
 }
+}
+		

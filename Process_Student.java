@@ -174,6 +174,40 @@ ArrayList<Student> lsStudent = new ArrayList<>();
 			}
 			return lsStudent;
 	}
+	public boolean insertStudent(String ID, String Name, String ClassID, double Mark, int Khoi, String HanhKiem) {
+		// TODO Auto-generated method stub
+		Connection cn = getCon();
+		String sql = "Insert into tb_student(ID, Name, ClassID, Mark, Khoi)" + "values(?,?,?,?,?)";
+		try {
+			PreparedStatement ps = (PreparedStatement) cn.prepareStatement(sql);
+			ps.setString(1, ID);
+			ps.setString(2, Name);
+			ps.setString(3, ClassID);
+			ps.setDouble(4, Mark);
+			ps.setInt(5, Khoi);
+			ps.setString(6, HanhKiem);
+			ps.executeUpdate();
+			cn.close();
+			return true; // Nếu thêm thành công
+
+		} catch (Exception e) {
+			return false; // Nếu thêm không thành công
+		}
+	}
+	public boolean delStudent(String ID) {
+		// TODO Auto-generated method stub
+		Connection cn = getCon();
+		String sql = "delete from tb_student where ID= ?";
+		int n=0;
+		try {
+			PreparedStatement ps = (PreparedStatement) cn.prepareStatement(sql);
+			ps.setString(1, ID);
+			n=ps.executeUpdate();
+		} catch (SQLException e) {
+			
+		}
+		return n>0;
+	}
 	public static void main(String[] args) {
 		System.out.println(getCon());
 	}
