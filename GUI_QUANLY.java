@@ -1,3 +1,4 @@
+// JavaScript source code
 package Quanlydiem;
 
 import java.awt.EventQueue;
@@ -30,6 +31,7 @@ import javax.swing.ImageIcon;
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.DefaultComboBoxModel;
+
 public class GUI_QUANLY extends JFrame {
 
 	private JPanel contentPane;
@@ -48,6 +50,8 @@ public class GUI_QUANLY extends JFrame {
 	private JTextField text_mhs = new JTextField();
 	private JOptionPane jOP_Check = new javax.swing.JOptionPane();
 	private JOptionPane jOP_Message = new JOptionPane();
+	JOptionPane jOP_kq = new javax.swing.JOptionPane();
+	JOptionPane kq = new javax.swing.JOptionPane();
 	/**
 	 * Launch the application.
 	 */
@@ -80,7 +84,7 @@ public class GUI_QUANLY extends JFrame {
 		
 		Panel panel = new Panel();
 		panel.setBackground(new Color(128, 255, 255));
-		panel.setBounds(10, 10, 355, 543);
+		panel.setBounds(10, 10, 355, 513);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -154,7 +158,6 @@ public class GUI_QUANLY extends JFrame {
 		
 		text_xeploai = new JTextField();
 		text_xeploai.setBounds(132, 299, 207, 24);
-		text_xeploai.setEnabled(false);
 		text_xeploai.setColumns(10);
 		panel.add(text_xeploai);
 		
@@ -166,7 +169,6 @@ public class GUI_QUANLY extends JFrame {
 		
 		text_hk = new JTextField();
 		text_hk.setBounds(133, 347, 207, 24);
-		text_hk.setEnabled(false);
 		text_hk.setColumns(10);
 		panel.add(text_hk);
 		
@@ -215,7 +217,15 @@ public class GUI_QUANLY extends JFrame {
 		btn_clear.setBackground(Color.YELLOW);
 		panel.add(btn_clear);
 		
+		final JButton btn_dongy1 = new JButton("Ðồng ý");
 		JButton btn_sua = new JButton("Sửa");
+		btn_sua.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				UpdategetlistStudent();
+				JOptionPane.showMessageDialog(btn_dongy1,"Bạn đã sửa thành công");
+			}
+		});
 		btn_sua.setBounds(245, 392, 100, 41);
 		btn_sua.setForeground(Color.RED);
 		btn_sua.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -252,22 +262,46 @@ panel.add(btn_sapxep);
 		panel.add(btn_xoa);
 		
 		JButton btn_them = new JButton("Thêm");
+		btn_them.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String Khoi = cb_khoi.getSelectedItem().toString();
+				String ClassID = text_lop.getText();
+				String ID = text_mhs.getText();
+				String Name = text_ten.getText();
+				double Mark = Double.parseDouble(text_diem.getText());
+				String HanhKiem = text_hk.getText();
+				if(ID.equals("")||Name.equals("")||ClassID.equals("")||HanhKiem.equals(""))
+					kq.showConfirmDialog(null, "Vui lòng điền đầy đủ thông tin","Thông báo", kq.OK_CANCEL_OPTION);
+				
+				else {
+					kq.showConfirmDialog(null, "Bạn có muốn thêm ","Thông báo", kq.OK_CANCEL_OPTION);
+					
+					ps.Insert_getlistStudent(ID, Name, ClassID,Mark,Khoi, HanhKiem);
+					text_mhs.setText("");
+					text_ten.setText("");
+					text_lop.setText("");
+					text_hk.setText("");
+					text_xeploai.setText("");
+					
+					dtm.setNumRows(0);
+					getAllStudent();
+			}
+				
+			}
+
+
+
+		});
 		btn_them.setBounds(245, 443, 100, 41);
 		btn_them.setForeground(Color.RED);
 		btn_them.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_them.setBackground(Color.YELLOW);
 		panel.add(btn_them);
 		
-		JButton btn_luu = new JButton("LƯU");
-		btn_luu.setBackground(new Color(255, 255, 128));
-		btn_luu.setForeground(new Color(255, 0, 0));
-		btn_luu.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		btn_luu.setBounds(73, 494, 226, 39);
-		panel.add(btn_luu);
-		
 		table_hienthi = new JTable();
 		table_hienthi.setBackground(new Color(128, 255, 255));
-		table_hienthi.setBounds(371, 10, 823, 543);
+		table_hienthi.setBounds(371, 10, 823, 513);
 		contentPane.add(table_hienthi);
 		
 		table_hienthi.addMouseListener(new MouseAdapter()
@@ -414,7 +448,18 @@ panel.add(btn_sapxep);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
 	}
-
+	private void UpdategetlistStudent() {
+		String Khoi = cb_khoi.getSelectedItem().toString() ;
+		String ClassID = text_lop.getText();
+		String ID = text_mhs.getText();
+		String Name = text_ten.getText();
+		double Mark = Double.parseDouble(text_diem.getText());
+		String HanhKiem = text_hk.getText();
+		ps.Update_getlistStudent(ID, Name, ClassID, Mark,Khoi, HanhKiem);
+		dtm.setNumRows(0);
+		getAllStudent();
+	}
+	
 	private void getAllStudent() {
 		dtm.setNumRows(0);
 		lst = ps.getListStudent();
@@ -460,4 +505,3 @@ public void delStudent() {
 	}
 }
 }
-		

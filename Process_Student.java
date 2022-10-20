@@ -19,7 +19,7 @@ public class Process_Student {
 		Connection cn = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/db_qlhs?useSSL=False", "root", "23122018az");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost/db_qlhs?useSSL=False", "root", "1792002");
 		}
 		catch(ClassNotFoundException | SQLException e) {
 		}
@@ -174,24 +174,48 @@ ArrayList<Student> lsStudent = new ArrayList<>();
 			}
 			return lsStudent;
 	}
-	public boolean insertStudent(String ID, String Name, String ClassID, double Mark, int Khoi, String HanhKiem) {
+	public static boolean Update_getlistStudent(String ID, String Name, String ClassID, double Mark,String khoi,String HanhKiem) {
 		// TODO Auto-generated method stub
-		Connection cn = getCon();
-		String sql = "Insert into tb_student(ID, Name, ClassID, Mark, Khoi)" + "values(?,?,?,?,?)";
+		Connection cn=getCon();
+		String sql="Update tb_student set Name=?,ClassID=?,Mark=?,Khoi=?,HanhKiem=? where ID=?";
+		try {
+			PreparedStatement ps = (PreparedStatement) cn.prepareStatement(sql);
+			ps.setString(1,Name);
+			ps.setString(2,ClassID);
+			ps.setDouble(3, Mark);
+			ps.setString(4,khoi);
+			ps.setString(5,HanhKiem);
+			ps.setString(6, ID);
+			ps.executeUpdate();
+			cn.close();
+			return true;
+			
+		}
+		catch(SQLException e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+	public boolean Insert_getlistStudent (String ID,String Name,String ClassID,  double Mark,String Khoi,String HanhKiem){
+		Connection cn=getCon();
+		String sql=" insert into db_qlhs.tb_student(ID,Name,ClassID,Mark,Khoi,HanhKiem) values (?, ?,?, ?, ?,?) ";
+		
 		try {
 			PreparedStatement ps = (PreparedStatement) cn.prepareStatement(sql);
 			ps.setString(1, ID);
 			ps.setString(2, Name);
 			ps.setString(3, ClassID);
-			ps.setDouble(4, Mark);
-			ps.setInt(5, Khoi);
+			ps.setDouble(4, Mark); 
+			ps.setString(5, Khoi);
 			ps.setString(6, HanhKiem);
 			ps.executeUpdate();
 			cn.close();
-			return true; // Nếu thêm thành công
-
-		} catch (Exception e) {
-			return false; // Nếu thêm không thành công
+			return true;
+			
+		}
+		catch(SQLException e) {
+			System.out.println(e);
+			return false;
 		}
 	}
 	public boolean delStudent(String ID) {
