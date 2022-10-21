@@ -1,4 +1,3 @@
-// JavaScript source code
 package Quanlydiem;
 
 import java.awt.EventQueue;
@@ -17,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
 import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
@@ -28,7 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.ImageIcon;
-import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.DefaultComboBoxModel;
 
@@ -199,6 +198,7 @@ public class GUI_QUANLY extends JFrame {
 				
 			}
 		});
+		
 		btn_timkiem.setBounds(20, 392, 100, 41);
 		btn_timkiem.setBackground(new Color(255, 255, 0));
 		btn_timkiem.setForeground(new Color(255, 0, 0));
@@ -233,19 +233,19 @@ public class GUI_QUANLY extends JFrame {
 		panel.add(btn_sua);
 		
 		JButton btn_sapxep = new JButton("Sắp xếp");
-//		btn_sapxep.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				Collection.sort(lst,(a,b)->(double)a.getMark()-b.getMark());
-//				getAllStudent();
-//			}
-//		});
+		btn_sapxep.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sapxep();
+			}
+		});
+
 		
 		
 		btn_sapxep.setBounds(20, 443, 100, 41);
 		btn_sapxep.setForeground(Color.RED);
 		btn_sapxep.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btn_sapxep.setBackground(Color.YELLOW);
-panel.add(btn_sapxep);
+		panel.add(btn_sapxep);
 		
 		JButton btn_xoa = new JButton("Xóa");		
 			btn_xoa.addActionListener(new ActionListener() {
@@ -504,4 +504,21 @@ public void delStudent() {
 			getAllStudent();
 	}
 }
+	public void sapxep() {
+		lst = ps.getListStudent();
+		Collections.sort(this.lst, new Comparator<Student>() {
+			public int compare(Student o1, Student o2) {
+				if(o1.getMark() < o2.getMark())
+				{
+					return -1;
+				}
+				else if(o1.getMark() > o2.getMark())
+				{
+					return 1;
+				}
+				else
+				return 0;				
+			}			
+		});
+	}
 }

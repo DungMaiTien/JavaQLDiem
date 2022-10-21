@@ -19,7 +19,7 @@ public class Process_Student {
 		Connection cn = null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			cn = DriverManager.getConnection("jdbc:mysql://localhost/db_qlhs?useSSL=False", "root", "1792002");
+			cn = DriverManager.getConnection("jdbc:mysql://localhost/db_qlhs?useSSL=False", "root", "23122018az");
 		}
 		catch(ClassNotFoundException | SQLException e) {
 		}
