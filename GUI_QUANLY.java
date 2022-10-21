@@ -211,6 +211,7 @@ public class GUI_QUANLY extends JFrame {
 		btn_clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Clear();
+				getAllStudent();
 			}
 		});
 		btn_clear.setBounds(132, 392, 100, 41);
