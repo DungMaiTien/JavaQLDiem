@@ -33,6 +33,7 @@ import javax.swing.DefaultComboBoxModel;
 
 public class GUI_QUANLY extends JFrame {
 
+	private static final String String = null;
 	private JPanel contentPane;
 	private JTextField text_lop;
 	private JTextField text_ten;
@@ -156,6 +157,7 @@ public class GUI_QUANLY extends JFrame {
 		panel.add(lblHTn_1_1_1);
 		
 		text_xeploai = new JTextField();
+		text_xeploai.setEnabled(false);
 		text_xeploai.setBounds(132, 299, 207, 24);
 		text_xeploai.setColumns(10);
 		panel.add(text_xeploai);
@@ -235,8 +237,10 @@ public class GUI_QUANLY extends JFrame {
 		JButton btn_sapxep = new JButton("Sắp xếp");
 		btn_sapxep.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				sapxep();
-			}
+			
+				sapxepall();;
+				}
+			
 		});
 
 		
@@ -478,7 +482,7 @@ public class GUI_QUANLY extends JFrame {
 		dtm.setDataVector(rows, columns);
 		dtm.insertRow(0, columns);
 		table_hienthi.setModel(dtm);
-	}
+	}		
 	private void Clear()
 	{
 		text_lop.setText(null);
@@ -504,15 +508,15 @@ public void delStudent() {
 			getAllStudent();
 	}
 }
-	public void sapxep() {
-		lst = ps.getListStudent();
+	public void sapxepall() {
 		Collections.sort(this.lst, new Comparator<Student>() {
+			@Override
 			public int compare(Student o1, Student o2) {
-				if(o1.getMark() < o2.getMark())
+				if(o1.getMark() > o2.getMark())
 				{
 					return -1;
 				}
-				else if(o1.getMark() > o2.getMark())
+				else if(o1.getMark() < o2.getMark())
 				{
 					return 1;
 				}
@@ -520,5 +524,22 @@ public void delStudent() {
 				return 0;				
 			}			
 		});
+		dtm.setNumRows(0);
+		for(int i = 0; i < lst.size(); i++) {
+			Student t = (Student)lst.get(i);
+			Vector<Object> tbRow = new Vector<>();
+			int Khoi ;
+			tbRow.add(t.getID());
+			tbRow.add(t.getName());
+			tbRow.add(t.getClassID());
+			tbRow.add(t.getMark());
+			tbRow.add(t.getKhoi());
+			tbRow.add(t.getHanhKiem());
+			tbRow.add(t.Xeploai());
+			rows.add(tbRow);
+		}
+		dtm.setDataVector(rows, columns);
+		dtm.insertRow(0, columns);
+		table_hienthi.setModel(dtm);
 	}
 }
